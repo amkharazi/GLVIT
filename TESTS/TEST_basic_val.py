@@ -21,6 +21,19 @@ import os
 
 import argparse
 
+import numpy as np
+import random
+
+def set_seed(seed: int = 42):
+    random.seed(seed) 
+    np.random.seed(seed)  
+    torch.manual_seed(seed)  
+    torch.cuda.manual_seed(seed)  
+    torch.cuda.manual_seed_all(seed)  
+    torch.backends.cudnn.deterministic = True 
+    torch.backends.cudnn.benchmark = False
+    
+
 def main(dataset = 'cifar10', 
         TEST_ID = 'Test_ID001',
          batch_size = 32,
@@ -32,13 +45,19 @@ def main(dataset = 'cifar10',
          dim = 64,
          depth = 6,
          heads = 8,
-         mlp_dim = 128):
+         mlp_dim = 128,
+         SEED = None):
     
     # Setup the device
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     # device = 'cpu'
     print(f'Device is set to : {device}')
 
+
+    if SEED is None:
+        print(f'No seed is set!')
+    else:
+        set_seed(seed=SEED)
 
     # Set up the vit model
     model = VisionTransformer(img_size=image_size,
@@ -208,13 +227,15 @@ if __name__ == '__main__':
     parser.add_argument('--depth', type=int, default=6, help='Depth of the model')
     parser.add_argument('--heads', type=int, default=8, help='Number of attention heads')
     parser.add_argument('--mlp_dim', type=int, default=128, help='MLP hidden layer dimension')
+    parser.add_argument('--seed', type=int, default=None, help='The randomness seed')
     
     # Parse the arguments
     args = parser.parse_args()
     
     # Call the main function with the parsed arguments
     main(args.dataset, args.TEST_ID, args.batch_size, args.n_epoch, args.image_size, args.train_size,
-         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim)
+         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.seed)
+
 
 
            

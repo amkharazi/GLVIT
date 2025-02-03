@@ -22,7 +22,18 @@ import os
 
 import argparse
 
+import numpy as np
+import random
 
+def set_seed(seed: int = 42):
+    random.seed(seed) 
+    np.random.seed(seed)  
+    torch.manual_seed(seed)  
+    torch.cuda.manual_seed(seed)  
+    torch.cuda.manual_seed_all(seed)  
+    torch.backends.cudnn.deterministic = True 
+    torch.backends.cudnn.benchmark = False
+    
 
 def main(dataset = 'cifar10', 
         TEST_ID = 'Test_ID001',
@@ -35,12 +46,19 @@ def main(dataset = 'cifar10',
          dim = 64,
          depth = 6,
          heads = 8,
-         mlp_dim = 128):
+         mlp_dim = 128,
+         SEED = None):
+    
     
     # Setup the device
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     # device = 'cpu'
     print(f'Device is set to : {device}')
+
+    if SEED is None:
+        print(f'No seed is set!')
+    else:
+        set_seed(seed=SEED)
 
     # Set up the vit model
     model = VisionTransformer(img_size=image_size,
@@ -192,7 +210,7 @@ def main(dataset = 'cifar10',
     os.makedirs(model_subdir, exist_ok=True)
     
     with open(os.path.join(result_dir, 'model_stats', 'model_info.txt'), 'a') as f:
-        f.write(f'total number of parameters:\n{num_parameters}\n dataset is {dataset}')
+        f.write(f'total number of parameters:\n{num_parameters}\n dataset is {dataset}\n seed is ${SEED}')
 
     # Train from Scratch - Just Train
     print(f'Training for {len(range(n_epoch))} epochs\n')
@@ -223,13 +241,14 @@ if __name__ == '__main__':
     parser.add_argument('--depth', type=int, default=6, help='Depth of the model')
     parser.add_argument('--heads', type=int, default=8, help='Number of attention heads')
     parser.add_argument('--mlp_dim', type=int, default=128, help='MLP hidden layer dimension')
+    parser.add_argument('--seed', type=int, default=None, help='The randomness seed')
     
     # Parse the arguments
     args = parser.parse_args()
     
     # Call the main function with the parsed arguments
     main(args.dataset, args.TEST_ID, args.batch_size, args.n_epoch, args.image_size, args.train_size,
-         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim)
+         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.seed)
 
 
     
