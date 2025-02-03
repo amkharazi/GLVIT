@@ -23,15 +23,14 @@ def get_mnist_dataloaders(data_dir='../datasets', transform_train=None, transfor
     train_dataset = datasets.MNIST(root=data_dir, train=True, transform=transform_train, download=True)
     test_dataset = datasets.MNIST(root=data_dir, train=False, transform=transform_test, download=True)
 
-    if train_size is not  'default':
-        total_train = len(dataset_train)
-        temp_test_size = total_train- train_size
-        dataset_train, dataset_temp_test = random_split(dataset_train, [train_size, temp_test_size])
-        dataset_test = ConcatDataset([dataset_temp_test, dataset_test])
+    if train_size!='default':
+        total_train = len(train_dataset)
+        temp_test_size = total_train-  int(train_size)
+        train_dataset, dataset_temp_test = random_split(train_dataset, [int(train_size), temp_test_size])
+        test_dataset = ConcatDataset([dataset_temp_test, test_dataset])
 
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-
     return train_loader, test_loader
 
 # Example usage:

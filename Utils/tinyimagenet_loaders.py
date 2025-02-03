@@ -102,10 +102,10 @@ def get_tinyimagenet_dataloaders(data_dir='../datasets', transform_train=None, t
     dataset_val = val_dataset(root_dir=data_dir, transform=transform_val)
     dataset_test = test_dataset(root_dir=data_dir, transform=transform_test)
     
-    if train_size is not  'default':
+    if train_size!='default':
         total_train = len(dataset_train)
-        temp_val_size = total_train- train_size
-        dataset_train, dataset_temp_val = random_split(dataset_train, [train_size, temp_val_size])
+        temp_val_size = total_train- int(train_size)
+        dataset_train, dataset_temp_val = random_split(dataset_train, [int(train_size), temp_val_size])
         dataset_val = ConcatDataset([dataset_temp_val, dataset_val])
 
     train_loader = DataLoader(dataset_train, batch_size=batch_size, shuffle=True)

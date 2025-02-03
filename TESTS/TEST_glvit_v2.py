@@ -192,7 +192,7 @@ def main(dataset = 'cifar10',
     os.makedirs(model_subdir, exist_ok=True)
     
     with open(os.path.join(result_dir, 'model_stats', 'model_info.txt'), 'a') as f:
-        f.write(f'total number of parameters:\n{num_parameters}')
+        f.write(f'total number of parameters:\n{num_parameters}\n dataset is {dataset}')
 
     # Train from Scratch - Just Train
     print(f'Training for {len(range(n_epoch))} epochs\n')
