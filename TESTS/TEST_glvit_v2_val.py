@@ -43,7 +43,8 @@ def main(dataset = 'cifar10',
          dim = 64,
          depth = 6,
          heads = 8,
-         mlp_dim = 128,
+         mlp_dim = 128, 
+         second_path_size = None,
          SEED = None):
     
     # Setup the device
@@ -65,7 +66,8 @@ def main(dataset = 'cifar10',
                                        depth=depth,
                                          heads=heads,
                                            mlp_dim=mlp_dim,
-                                             dropout=0.1).to(device)
+                                             dropout=0.1,
+                                               second_path_size=second_path_size).to(device)
 
     if dataset=='cifar10':
         cifar10_transform_train = transforms.Compose([
@@ -225,13 +227,15 @@ if __name__ == '__main__':
     parser.add_argument('--heads', type=int, default=8, help='Number of attention heads')
     parser.add_argument('--mlp_dim', type=int, default=128, help='MLP hidden layer dimension')
     parser.add_argument('--seed', type=int, default=None, help='The randomness seed')
+    parser.add_argument('--second_patch_size', type=int, default=None, help='The second patch size used for local global feature extraction')
+    
     
     # Parse the arguments
     args = parser.parse_args()
     
     # Call the main function with the parsed arguments
     main(args.dataset, args.TEST_ID, args.batch_size, args.n_epoch, args.image_size, args.train_size,
-         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.seed)
+         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.second_patch_size,args.seed)
 
 
            

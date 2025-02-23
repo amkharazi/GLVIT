@@ -8,15 +8,20 @@ import numpy as np
 
 
 class PatchEmbedding(nn.Module):
-    def __init__(self, img_size, patch_size, in_channels, embed_dim):
+    def __init__(self, img_size, patch_size, in_channels, embed_dim, second_path_size = None):
         super(PatchEmbedding, self).__init__()
         self.patch_size = patch_size
         self.embed_dim = embed_dim
 
+        if second_path_size is None:
+           self.second_path_size=patch_size//2
+        else:
+            self.second_path_size = second_path_size
+
         self.projection1 = nn.Conv2d(in_channels, embed_dim, kernel_size=patch_size, stride=patch_size)
 
-        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=patch_size//2, stride=patch_size//2)
-        self.projection2 = nn.Conv2d(in_channels, embed_dim, kernel_size=patch_size // 2, stride=patch_size // 2)
+        self.conv = nn.Conv2d(in_channels, in_channels, kernel_size=self.second_path_size, stride=self.second_path_size)
+        self.projection2 = nn.Conv2d(in_channels, embed_dim, kernel_size=self.second_path_size, stride=self.second_path_size)
 
     def forward(self, x):
         x1 = self.projection1(x)  # Shape: (B, embed_dim, H/patch_size, W/patch_size)
@@ -143,9 +148,9 @@ class TransformerBlock(nn.Module):
         return x
 
 class VisionTransformer(nn.Module):
-    def __init__(self, img_size=32, patch_size=4, in_channels=3, num_classes=10, dim=64, depth=6, heads=8, mlp_dim=128, dropout=0.1):
+    def __init__(self, img_size=32, patch_size=4, in_channels=3, num_classes=10, dim=64, depth=6, heads=8, mlp_dim=128, dropout=0.1, second_path_size = None):
         super(VisionTransformer, self).__init__()
-        self.patch_embed = PatchEmbedding(img_size, patch_size, in_channels, dim)
+        self.patch_embed = PatchEmbedding(img_size, patch_size, in_channels, dim, second_path_size)
         self.cls_token1 = nn.Parameter(torch.randn(1, 1, dim))
         self.cls_token2 = nn.Parameter(torch.randn(1, 1, dim))
         self.positional_encoding = nn.Parameter(torch.randn(1, (2 * (img_size // patch_size) ** 2) + 2, dim))
