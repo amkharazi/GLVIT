@@ -1,0 +1,4 @@
+total number of parameters:
+225263
+ dataset is tinyimagenet
+ seed is $None
