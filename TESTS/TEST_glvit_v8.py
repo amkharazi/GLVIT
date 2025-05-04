@@ -9,7 +9,10 @@ from Utils.cifar10_loaders import get_cifar10_dataloaders
 from Utils.cifar100_loaders import get_cifar100_dataloaders
 from Utils.mnist_loaders import get_mnist_dataloaders
 from Utils.tinyimagenet_loaders import get_tinyimagenet_dataloaders
-
+from Utils.fashionmnist_loaders import get_fashionmnist_dataloaders
+from Utils.flowers102_loaders import get_flowers102_dataloaders
+from Utils.oxford_pets_loaders import get_oxford_pets_dataloaders
+from Utils.stl10_classification_loaders import get_stl10_classification_dataloaders
 
 from Utils.accuracy_measures import topk_accuracy
 from Utils.num_parameters import count_parameters
@@ -74,94 +77,134 @@ def main(dataset = 'cifar10',
                                              dropout=0.1,
                                                second_path_size=second_path_size).to(device)
     
-    if dataset=='cifar10':
-        cifar10_transform_train = transforms.Compose([
-                transforms.RandomHorizontalFlip(),
-                transforms.Resize((image_size, image_size)), 
-                transforms.RandomCrop(image_size, padding=5),
-                transforms.RandomRotation(10),
-                transforms.ToTensor(),
-                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-        cifar10_transform_test = transforms.Compose([
-                transforms.Resize((image_size, image_size)), 
-                transforms.ToTensor(),
-                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-        train_loader, _ = get_cifar10_dataloaders(data_dir = '../datasets',
-                                                    transform_train=cifar10_transform_train,
-                                                    transform_test=cifar10_transform_test,
-                                                    batch_size=batch_size,
-                                                    image_size=image_size,
-                                                    train_size=train_size)
-    if dataset=='cifar100':
-        cifar100_transform_train = transforms.Compose([
-                transforms.RandomHorizontalFlip(),
-                transforms.Resize((image_size, image_size)), 
-                transforms.RandomCrop(image_size, padding=5),
-                transforms.RandomRotation(10),
-                transforms.ToTensor(),
-                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-        cifar100_transform_test = transforms.Compose([
-                transforms.Resize((image_size, image_size)), 
-                transforms.ToTensor(),
-                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-        train_loader, _ = get_cifar100_dataloaders(data_dir = '../datasets',
-                                                    transform_train=cifar100_transform_train,
-                                                    transform_test=cifar100_transform_test,
-                                                    batch_size=batch_size,
-                                                    image_size=image_size,
-                                                    train_size=train_size)
-    if dataset=='mnist':
-        mnist_transform_train = transforms.Compose([
-            transforms.Resize((image_size, image_size)), 
-            transforms.Grayscale(num_output_channels=3),
+    # CIFAR-10
+    if dataset == 'cifar10':
+        transform_train = transforms.Compose([
             transforms.RandomHorizontalFlip(),
-            transforms.RandomCrop(32, padding=2), 
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-        ])
-        mnist_transform_test = transforms.Compose([
-            transforms.Resize((image_size, image_size)), 
-            transforms.Grayscale(num_output_channels=3), 
-            transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-        ])
-        train_loader, _ = get_mnist_dataloaders(data_dir = '../datasets',
-                                                    transform_train=mnist_transform_train,
-                                                    transform_test=mnist_transform_test,
-                                                    batch_size=batch_size,
-                                                    image_size=image_size,
-                                                    train_size=train_size)
-    if dataset=='tinyimagenet':
-        tiny_transform_train = transforms.Compose([
-            transforms.RandomHorizontalFlip(),
-            transforms.Resize((image_size, image_size)), 
-            transforms.RandomCrop(image_size, padding=5),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
             transforms.RandomRotation(10),
             transforms.ToTensor(),
             transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
         ])
-        tiny_transform_val = transforms.Compose([
-                transforms.Resize((image_size, image_size)), 
-                transforms.ToTensor(),
-                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
-        tiny_transform_test = transforms.Compose([
-                transforms.Resize((image_size, image_size)), 
-                transforms.ToTensor(),
-                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
-            ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        train_loader, _ = get_cifar10_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
 
-        
-        train_loader, _,_ = get_tinyimagenet_dataloaders(data_dir = '../datasets',
-                                                        transform_train=tiny_transform_train,
-                                                        transform_val=tiny_transform_val,
-                                                        transform_test=tiny_transform_test,
-                                                        batch_size=batch_size,
-                                                        image_size=image_size)
+    # CIFAR-100
+    if dataset == 'cifar100':
+        transform_train = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.RandomRotation(10),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        train_loader, _ = get_cifar100_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
+
+    # MNIST
+    if dataset == 'mnist':
+        transform_train = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.Grayscale(num_output_channels=3),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.Grayscale(num_output_channels=3),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+        train_loader, _ = get_mnist_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
+
+    # TinyImageNet
+    if dataset == 'tinyimagenet':
+        transform_train = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.RandomRotation(10),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        transform_val = transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        train_loader, _, _ = get_tinyimagenet_dataloaders('../datasets', transform_train, transform_val, transform_test, batch_size, image_size)
+
+    # FashionMNIST
+    if dataset == 'fashionmnist':
+        transform_train = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.Grayscale(num_output_channels=3),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.Grayscale(num_output_channels=3),
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+        train_loader, _ = get_fashionmnist_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
+
+    # Flowers102
+    if dataset == 'flowers102':
+        transform_train = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        train_loader, _ = get_flowers102_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
+
+    # Oxford Pets
+    if dataset == 'oxford_pets':
+        transform_train = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        train_loader, _ = get_oxford_pets_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
+
+    # STL10
+    if dataset == 'stl10':
+        transform_train = transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        train_loader, _ = get_stl10_classification_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size)
     
     num_parameters = count_parameters(model)
     print(f'This Model has {num_parameters} parameters')

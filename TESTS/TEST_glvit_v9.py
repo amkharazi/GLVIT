@@ -4,7 +4,7 @@ sys.path.append('..')
 
 # Import Libraries
 
-from Models.glvit_v5 import VisionTransformer
+from Models.glvit_v9 import VisionTransformer
 from Utils.cifar10_loaders import get_cifar10_dataloaders
 from Utils.cifar100_loaders import get_cifar100_dataloaders
 from Utils.mnist_loaders import get_mnist_dataloaders
@@ -59,11 +59,12 @@ def main(dataset = 'cifar10',
     # device = 'cpu'
     print(f'Device is set to : {device}')
 
+
     if SEED is None:
         print(f'No seed is set!')
     else:
         set_seed(seed=SEED)
-
+        
     # Set up the vit model
     model = VisionTransformer(img_size=image_size,
                                patch_size=patch_size,
