@@ -25,7 +25,7 @@ class PatchEmbedding(nn.Module):
 
         self.projection1 = nn.Conv2d(in_channels, embed_dim, kernel_size=patch_size, stride=patch_size)
 
-        self.projection2 = nn.Conv2d(in_channels, embed_dim, kernel_size=self.second_path_size, stride=self.second_path_size)
+        self.projection2 = nn.Conv2d(in_channels, embed_dim, kernel_size=patch_size, stride=patch_size)
 
     def forward(self, x):
         x1 = self.projection1(x)  
