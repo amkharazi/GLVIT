@@ -51,7 +51,7 @@ def main(dataset = 'cifar10',
          mlp_dim = 128, 
          second_path_size = None,
          SEED = None,
-         debug = False):
+         print_w = False):
     
     # Setup the device
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -75,7 +75,7 @@ def main(dataset = 'cifar10',
                                            mlp_dim=mlp_dim,
                                              dropout=0.1,
                                                second_path_size=second_path_size,
-                                                 debug=debug).to(device)
+                                                 print_w=print_w).to(device)
 
     if dataset=='cifar10':
         cifar10_transform_train = transforms.Compose([
@@ -240,8 +240,8 @@ def main(dataset = 'cifar10',
             
             outputs = model(inputs)
 
-            if debug:
-                return
+            # if print_w:
+            #     return
 
             loss = criterion(outputs, targets)
 
@@ -269,13 +269,13 @@ def main(dataset = 'cifar10',
     
 
     # Testing
-    if debug:
-        epoch = n_epoch
-        weights_path = os.path.join('../results',TEST_ID, 'model_stats', f'Model_epoch_{epoch}.pth')
-        print(model.load_state_dict(torch.load(weights_path)))
-        model = model.to(device)
-        report_test = test_epoch(test_loader, epoch)
-        return
+    # if print_w:
+    #     epoch = n_epoch
+    #     weights_path = os.path.join('../results',TEST_ID, 'model_stats', f'Model_epoch_{epoch}.pth')
+    #     print(model.load_state_dict(torch.load(weights_path)))
+    #     model = model.to(device)
+    #     report_test = test_epoch(test_loader, epoch)
+    #     return
     for epoch in range(0+1,n_epoch+1):
         if epoch%5 == 0:
             weights_path = os.path.join('../results',TEST_ID, 'model_stats', f'Model_epoch_{epoch}.pth')
@@ -307,7 +307,7 @@ if __name__ == '__main__':
     parser.add_argument('--mlp_dim', type=int, default=128, help='MLP hidden layer dimension')
     parser.add_argument('--seed', type=int, default=None, help='The randomness seed')
     parser.add_argument('--second_patch_size', type=int, default=None, help='The second patch size used for local global feature extraction')
-    parser.add_argument('--debug', type=bool, default=False, help='Prints out the Ws')
+    parser.add_argument('--print_w', type=bool, default=False, help='Prints out the Ws')
 
     
     # Parse the arguments
@@ -315,7 +315,7 @@ if __name__ == '__main__':
     
     # Call the main function with the parsed arguments
     main(args.dataset, args.TEST_ID, args.batch_size, args.n_epoch, args.image_size, args.train_size,
-         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.second_patch_size,args.seed, args.debug)
+         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.second_patch_size,args.seed, args.print_w)
 
 
            
