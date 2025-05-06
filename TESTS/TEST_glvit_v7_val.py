@@ -97,7 +97,7 @@ def main(dataset = 'cifar10',
                                                     batch_size=batch_size,
                                                     image_size=image_size,
                                                     train_size=train_size)
-    i# CIFAR-10
+    # CIFAR-10
     if dataset == 'cifar10':
         transform_train = transforms.Compose([
             transforms.RandomHorizontalFlip(),
