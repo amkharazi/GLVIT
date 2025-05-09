@@ -1,0 +1,4 @@
+total number of parameters:
+293220
+ dataset is oxford_pets
+ seed is $None
