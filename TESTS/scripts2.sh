@@ -65,8 +65,16 @@
 
 # # TINY IMAGENET 200
 
+<<<<<<< HEAD
 # python  TEST_basic.py    --TEST_ID TEST_FINAL_ID031    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_basic_val.py    --TEST_ID TEST_FINAL_ID031    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
 # python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_ID032    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_ID032    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_ID016/accuracy_stats/output.txt   
+=======
+# python  TEST_basic.py    --TEST_ID TEST_FINAL_ID031    --dataset tiny_imagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_val.py    --TEST_ID TEST_FINAL_ID031    --dataset tiny_imagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+
+# python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_ID032    --dataset tiny_imagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_ID032    --dataset tiny_imagenet    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_ID016/accuracy_stats/output.txt   
+>>>>>>> 3af1dd64f6d3e27b9f10f909c7810369072bc9cf
