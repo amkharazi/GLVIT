@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, Dataset
@@ -103,8 +104,7 @@ class MultiHeadAttention(nn.Module):
         block3 = block3.softmax(dim=-1)
         block4 = block4.softmax(dim=-1)
 
-        w = self.weights.softmax(dim=0)
-        w = (w == w.max()).float()
+        w = F.gumbel_softmax(self.weights, tau=1.0, hard=True, dim=0)
         # print(w)
 
         attn = w[0] * block1 + w[1] * block2 + w[2] * block3 + w[3] * block4
