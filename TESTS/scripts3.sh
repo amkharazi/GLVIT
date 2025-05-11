@@ -40,5 +40,5 @@
 
 # # TINY IMAGENET 200
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_ID040    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_ID040    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_ID040    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_ID040    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
