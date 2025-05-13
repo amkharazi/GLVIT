@@ -1,7 +1,7 @@
 # # MNIST
 
-# python  TEST_glvit_v1.py    --TEST_ID TEST_ABLATION_ID001   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_glvit_v1_val.py    --TEST_ID TEST_ABLATION_ID001    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v1.py    --TEST_ID TEST_ABLATION_ID001   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v1_val.py    --TEST_ID TEST_ABLATION_ID001    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
 # python  TEST_glvit_v2.py    --TEST_ID TEST_ABLATION_ID002   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_glvit_v2_val.py    --TEST_ID TEST_ABLATION_ID002    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
@@ -58,8 +58,8 @@
 
 # # OXFORD PETS
 
-python  TEST_glvit_v1.py    --TEST_ID TEST_ABLATION_ID019   --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128
-python  TEST_glvit_v1_val.py    --TEST_ID TEST_ABLATION_ID019    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128
+# python  TEST_glvit_v1.py    --TEST_ID TEST_ABLATION_ID019   --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128
+# python  TEST_glvit_v1_val.py    --TEST_ID TEST_ABLATION_ID019    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128
 
 # python  TEST_glvit_v2.py    --TEST_ID TEST_ABLATION_ID020   --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128
 # python  TEST_glvit_v2_val.py    --TEST_ID TEST_ABLATION_ID020    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128

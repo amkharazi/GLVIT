@@ -161,7 +161,7 @@ class VisionTransformer(nn.Module):
         self.mlp_head = nn.Sequential(
             nn.LayerNorm(2*dim),
             nn.Linear(2*dim, dim),
-            nn.ReLU(), 
+            # nn.ReLU(), 
             nn.Linear(dim, num_classes)
         )
 
