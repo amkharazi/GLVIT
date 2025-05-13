@@ -1,10 +1,10 @@
 # # MNIST
 
-# python  TEST_basic.py    --TEST_ID TEST_FINAL_V2_ID0    --dataset mnist   --batch_size 32 --n_epoch 10 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_val.py    --TEST_ID TEST_FINAL_V2_ID0    --dataset mnist   --batch_size 32 --n_epoch 10 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic.py    --TEST_ID TEST_FINAL_V2_ID0    --dataset mnist   --batch_size 32 --n_epoch 5 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_val.py    --TEST_ID TEST_FINAL_V2_ID0    --dataset mnist   --batch_size 32 --n_epoch 5 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID00    --dataset mnist    --batch_size 32 --n_epoch 10 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID00    --dataset mnist   --batch_size 32 --n_epoch 10 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID00/accuracy_stats/output.txt  
+# python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID00    --dataset mnist    --batch_size 32 --n_epoch 5 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID00    --dataset mnist   --batch_size 32 --n_epoch 5 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID00/accuracy_stats/output.txt  
 
 
 # # MNIST
@@ -12,8 +12,8 @@
 # python  TEST_basic.py    --TEST_ID TEST_FINAL_V2_ID017    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_basic_val.py    --TEST_ID TEST_FINAL_V2_ID017    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID018    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID018    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID018/accuracy_stats/output.txt  
+python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID018    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID018    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID018/accuracy_stats/output.txt  
 
 # # FASHION MNIST
 
@@ -37,7 +37,7 @@
 # python  TEST_basic_val.py    --TEST_ID TEST_FINAL_V2_ID023    --dataset stl10   --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
 # python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID024    --dataset stl10   --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID024    --dataset stl10   --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID024/accuracy_stats/output.txt 
+# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID024    --dataset stl10   --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID024/accuracy_stats/output.txt 
 
 # # FLOWERS 102
 
