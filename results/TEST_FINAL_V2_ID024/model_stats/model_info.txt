@@ -1,0 +1,10 @@
+total number of parameters:
+289737
+ dataset is stl10
+ seed is $Nonetotal number of parameters:
+289737
+ dataset is stl10
+ seed is $Nonetotal number of parameters:
+289737
+ dataset is stl10
+ seed is $None

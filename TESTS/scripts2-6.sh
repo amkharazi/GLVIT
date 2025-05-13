@@ -28,8 +28,8 @@
 # python  TEST_basic.py    --TEST_ID TEST_FINAL_V2_ID021    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_basic_val.py    --TEST_ID TEST_FINAL_V2_ID021    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID022    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID022    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID022/accuracy_stats/output.txt
+python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID022    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID022    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID022/accuracy_stats/output.txt
 
 # # STL10
 
@@ -53,7 +53,7 @@
 # python  TEST_basic_val.py    --TEST_ID TEST_FINAL_V2_ID027    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
 # python  TEST_glvit_v7.py    --TEST_ID TEST_FINAL_V2_ID028    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID028    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID028/accuracy_stats/output.txt
+# python  TEST_glvit_v7_val.py    --TEST_ID TEST_FINAL_V2_ID028    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/TEST_FINAL_V2_ID028/accuracy_stats/output.txt
 
 # # CIFAR100
 
