@@ -107,19 +107,14 @@ class MultiHeadAttention(nn.Module):
         block2 = block2.softmax(dim=-1)
         block3 = block3.softmax(dim=-1)
         block4 = block4.softmax(dim=-1)
-        if torch.argmax(self.weights) == 0:
-            attn = block1        
-        if torch.argmax(self.weights) == 1:
-            attn =  block2
-        if torch.argmax(self.weights) == 2:
-            attn =  block3
-        if torch.argmax(self.weights) == 3:
-            attn =  block4
-            
-        # if self.print_w:
-        #     print(w)
 
-        # attn = w[0] * block1 + w[1] * block2 + w[2] * block3 + w[3] * block4
+        # w = F.gumbel_softmax(self.weights, tau=1.0, hard=True, dim=0)
+
+        if self.print_w:
+            # print(w)
+            print(torch.argmax(self.weights)+1)            
+
+        attn = self.weights[0] * block1 + self.weights[1] * block2 + self.weights[2] * block3 + self.weights[3] * block4
 
         # print(attn.shape)
         # print(v1.shape, v2.shape)
