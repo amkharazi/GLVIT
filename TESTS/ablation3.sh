@@ -6,8 +6,8 @@
 # python  TEST_glvit_v2.py    --TEST_ID TEST_ABLATION_ID002   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_glvit_v2_val.py    --TEST_ID TEST_ABLATION_ID002    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# python  TEST_glvit_v3.py    --TEST_ID TEST_ABLATION_ID003   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_glvit_v3_val.py    --TEST_ID TEST_ABLATION_ID003    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v3.py    --TEST_ID TEST_ABLATION_ID003   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v3_val.py    --TEST_ID TEST_ABLATION_ID003    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
 # python  TEST_glvit_v4.py    --TEST_ID TEST_ABLATION_ID004   --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_glvit_v4_val.py    --TEST_ID TEST_ABLATION_ID004    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
