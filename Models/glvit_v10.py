@@ -114,7 +114,7 @@ class MultiHeadAttention(nn.Module):
             # print(w)
             print(torch.argmax(self.weights)+1)            
 
-        attn = self.weights[0] * block1 + self.weights[1] * block2 + self.weights[2] * block3 + self.weights[3] * block4
+        attn = 1 * block1 + 1 * block2 + 1 * block3 + 1 * block4
 
         # print(attn.shape)
         # print(v1.shape, v2.shape)
