@@ -1,0 +1,4 @@
+total number of parameters:
+288971
+ dataset is mnist
+ seed is $None
