@@ -47,8 +47,8 @@ python  TEST_glvit_v8_val.py    --TEST_ID TEST_ABLATION_ID007    --dataset mnist
 # python  TEST_glvit_v6.py    --TEST_ID TEST_ABLATION_ID015   --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_glvit_v6_val.py    --TEST_ID TEST_ABLATION_ID015    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# python  TEST_glvit_v8.py    --TEST_ID TEST_ABLATION_ID016   --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_glvit_v8_val.py    --TEST_ID TEST_ABLATION_ID016    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v8.py    --TEST_ID TEST_ABLATION_ID016   --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+python  TEST_glvit_v8_val.py    --TEST_ID TEST_ABLATION_ID016    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
 # python  TEST_glvit_v9.py    --TEST_ID TEST_ABLATION_ID017   --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 # python  TEST_glvit_v9_val.py    --TEST_ID TEST_ABLATION_ID017    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
