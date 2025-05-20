@@ -8,6 +8,21 @@ from einops import rearrange
 import numpy as np
 
 
+class DropPath(nn.Module):
+    def __init__(self, drop_prob=None):
+        super(DropPath, self).__init__()
+        self.drop_prob = drop_prob
+
+    def forward(self, x):
+        if self.drop_prob == 0. or not self.training:
+            return x
+        keep_prob = 1 - self.drop_prob
+        shape = (x.shape[0],) + (1,) * (x.ndim - 1)
+        random_tensor = keep_prob + torch.rand(shape, dtype=x.dtype, device=x.device)
+        random_tensor.floor_()
+        return x.div(keep_prob) * random_tensor
+    
+    
 class PatchEmbedding(nn.Module):
     def __init__(self, img_size, patch_size, in_channels, embed_dim, second_path_size = None):
         super(PatchEmbedding, self).__init__()
@@ -142,27 +157,28 @@ class MLP(nn.Module):
         return x
 
 class TransformerBlock(nn.Module):
-    def __init__(self, dim, num_heads, mlp_dim, dropout, print_w = False):
+    def __init__(self, dim, num_heads, mlp_dim, dropout, print_w = False, drop_path=0.1):
         super(TransformerBlock, self).__init__()
         self.norm1 = nn.LayerNorm(dim)
         self.norm2 = nn.LayerNorm(dim)
         self.attn = MultiHeadAttention(dim, num_heads, print_w=print_w)
         self.mlp = MLP(dim, mlp_dim, dropout)
+        self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
 
     def forward(self, x):
-        x = x + self.attn(self.norm1(x))
-        x = x + self.mlp(self.norm2(x))
+        x = x + self.drop_path(self.attn(self.norm1(x)))
+        x = x + self.drop_path(self.mlp(self.norm2(x)))
         return x
 
 class VisionTransformer(nn.Module):
-    def __init__(self, img_size=32, patch_size=4, in_channels=3, num_classes=10, dim=64, depth=6, heads=8, mlp_dim=128, dropout=0.1, second_path_size = None, print_w=False):
+    def __init__(self, img_size=32, patch_size=4, in_channels=3, num_classes=10, dim=64, depth=6, heads=8, mlp_dim=128, dropout=0.1, second_path_size = None, print_w=False, drop_path=0.1):
         super(VisionTransformer, self).__init__()
         self.patch_embed = PatchEmbedding(img_size, patch_size, in_channels, dim, second_path_size)
         self.cls_token1 = nn.Parameter(torch.randn(1, 1, dim))
         self.cls_token2 = nn.Parameter(torch.randn(1, 1, dim))
         self.positional_encoding = nn.Parameter(torch.randn(1, (2 * (img_size // patch_size) ** 2) + 2, dim))
         self.transformer = nn.ModuleList([
-            TransformerBlock(dim, heads, mlp_dim, dropout, print_w=print_w)
+            TransformerBlock(dim, heads, mlp_dim, dropout, print_w=print_w, drop_path=drop_path)
             for _ in range(depth)
         ])
         self.mlp_head = nn.Sequential(
