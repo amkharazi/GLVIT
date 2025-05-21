@@ -39,7 +39,7 @@ def set_seed(seed: int = 42):
 
 def main(dataset = 'cifar10', 
         TEST_ID = 'Test_ID001',
-         batch_size = 32,
+         batch_size = 256,
          n_epoch = 200,
          image_size = 32,
          train_size = 'default',
