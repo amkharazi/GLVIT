@@ -100,8 +100,7 @@ def main(dataset = 'cifar10',
                                        depth=depth,
                                          heads=heads,
                                            mlp_dim=mlp_dim,
-                                             dropout=0.1,
-                                               second_path_size=second_path_size).to(device)
+                                             dropout=0.1).to(device)
     
     # CIFAR-10
     if dataset == 'cifar10':

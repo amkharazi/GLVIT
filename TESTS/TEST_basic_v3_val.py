@@ -73,9 +73,7 @@ def main(dataset = 'cifar10',
                                        depth=depth,
                                          heads=heads,
                                            mlp_dim=mlp_dim,
-                                             dropout=0.1,
-                                               second_path_size=second_path_size,
-                                                 print_w=print_w).to(device)
+                                             dropout=0.1).to(device)
 
     if dataset=='cifar10':
         cifar10_transform_train = transforms.Compose([
