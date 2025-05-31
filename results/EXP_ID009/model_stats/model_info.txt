@@ -1,0 +1,4 @@
+total number of parameters:
+19681723
+ dataset is cifar100
+ seed is $None
