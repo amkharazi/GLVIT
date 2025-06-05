@@ -1,44 +1,41 @@
-# # MNIST
+# python  TEST_glvit_v11.py    --TEST_ID EXP_ID001    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_glvit_v11_val.py    --TEST_ID EXP_ID001    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/EXP_ID001/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID0    --dataset mnist   --batch_size 32 --n_epoch 5 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID0    --dataset mnist   --batch_size 32 --n_epoch 5 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v2.py    --TEST_ID EXP_ID002    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v2_val.py    --TEST_ID EXP_ID002    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# # MNIST
+# python  TEST_glvit_v11.py    --TEST_ID EXP_ID003    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+# python  TEST_glvit_v11_val.py    --TEST_ID EXP_ID003    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/EXP_ID003/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID033    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID033    --dataset mnist    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v2.py    --TEST_ID EXP_ID004    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+# python  TEST_basic_v2_val.py    --TEST_ID EXP_ID004    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
 
-# # FASHION MNIST
+# python  TEST_glvit_v12.py    --TEST_ID EXP_ID005    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_glvit_v12_val.py    --TEST_ID EXP_ID005    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 --print_w True > ../results/EXP_ID005/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID034    --dataset fashionmnist    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID034    --dataset fashionmnist    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v3.py    --TEST_ID EXP_ID006    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v3_val.py    --TEST_ID EXP_ID006    --dataset cifar100    --batch_size 256 --n_epoch 300 --image_size 32  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
 
-# # CIFAR10
+# python  TEST_glvit_v11.py    --TEST_ID EXP_ID007    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+# python  TEST_glvit_v11_val.py    --TEST_ID EXP_ID007    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/EXP_ID007/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID035    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID035    --dataset cifar10    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v2.py    --TEST_ID EXP_ID008    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+# python  TEST_basic_v2_val.py    --TEST_ID EXP_ID008    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
 
-# # STL10   
+# python  TEST_glvit_v11.py    --TEST_ID EXP_ID009    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 6   --mlp_dim 768 
+# python  TEST_glvit_v11_val.py    --TEST_ID EXP_ID009    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 6   --mlp_dim 768 --print_w True > ../results/EXP_ID009/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID036    --dataset stl10   --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID036    --dataset stl10   --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v2.py    --TEST_ID EXP_ID010    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 6   --mlp_dim 768 
+# python  TEST_basic_v2_val.py    --TEST_ID EXP_ID010    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 6   --mlp_dim 768 
 
-# # FLOWERS 102
+# python  TEST_glvit_v11.py    --TEST_ID EXP_ID011    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 12   --mlp_dim 768 
+# python  TEST_glvit_v11_val.py    --TEST_ID EXP_ID011    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 12   --mlp_dim 768 --print_w True > ../results/EXP_ID009/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID037    --dataset flowers102    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 102    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID037    --dataset flowers102    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 102    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_basic_v2.py    --TEST_ID EXP_ID012    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 12   --mlp_dim 768 
+# python  TEST_basic_v2_val.py    --TEST_ID EXP_ID012    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 384    --depth 12   --heads 12   --mlp_dim 768 
 
-# # OXFORD PETS
+# python  TEST_glvit_v13.py    --TEST_ID EXP_ID013    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+# python  TEST_glvit_v13_val.py    --TEST_ID EXP_ID013    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/EXP_ID013/accuracy_stats/output.txt 
 
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID038    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID038    --dataset oxford_pets    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 37    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-
-# # CIFAR100
-
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID039    --dataset cifar100    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID039    --dataset cifar100    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 100    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-
-# # TINY IMAGENET 200
-
-# python  TEST_basic_timm.py    --TEST_ID TEST_FINAL_V2_ID040    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
-# python  TEST_basic_timm_val.py    --TEST_ID TEST_FINAL_V2_ID040    --dataset tinyimagenet    --batch_size 32 --n_epoch 200 --image_size 224  --patch_size 4  --num_classes 200    --dim 64    --depth 6   --heads 8   --mlp_dim 128 
+# python  TEST_glvit_v11.py    --TEST_ID EXP_ID014    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+# python  TEST_glvit_v11_val.py    --TEST_ID EXP_ID014    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/EXP_ID014/accuracy_stats/output.txt 

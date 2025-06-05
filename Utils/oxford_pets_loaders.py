@@ -1,5 +1,5 @@
 import torchvision.transforms as transforms
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, random_split, ConcatDataset
 from torchvision.datasets import OxfordIIITPet
 
 def get_oxford_pets_dataloaders(
@@ -8,7 +8,8 @@ def get_oxford_pets_dataloaders(
     transform_test=None,
     batch_size=64,
     image_size=192,
-    train_size='default'
+    train_size='default',
+    repeat_count=3
 ):
     if transform_train is None:
         transform_train = transforms.Compose([
@@ -27,11 +28,11 @@ def get_oxford_pets_dataloaders(
                                  (0.229, 0.224, 0.225))
         ])
 
+    # Load the full dataset with a neutral transform
     basic_transform = transforms.Compose([
         transforms.Resize((image_size, image_size)),
         transforms.ToTensor(),
     ])
-
 
     full_dataset = OxfordIIITPet(
         root=data_dir,
@@ -53,7 +54,12 @@ def get_oxford_pets_dataloaders(
     train_dataset.dataset.transform = transform_train
     test_dataset.dataset.transform = transform_test
 
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    repeated_train_dataset = ConcatDataset([train_dataset] * repeat_count)
+
+    train_loader = DataLoader(repeated_train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     return train_loader, test_loader
+
+# Example usage:
+# train_loader, test_loader = get_oxford_pets_dataloaders(data_dir='./dataset', image_size=192)

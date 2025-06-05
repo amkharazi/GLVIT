@@ -40,4 +40,4 @@ def get_cifar100_dataloaders(data_dir='../datasets', transform_train=None, trans
     return train_loader, test_loader
 
 # Example usage:
-# train_loader, test_loader = get_cifar10_dataloaders(data_dir='./dataset', image_size=192)
+# train_loader, test_loader = get_cifar100_dataloaders(data_dir='./dataset', image_size=192)
