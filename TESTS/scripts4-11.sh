@@ -28,8 +28,8 @@
 # python  TEST_glvit_v14.py    --TEST_ID FINAL_V1_ID010    --dataset tinyimagenet    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 200    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
 # python  TEST_glvit_v14_val.py    --TEST_ID FINAL_V1_ID010    --dataset tinyimagenet    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 200    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/FINAL_V1_ID010/accuracy_stats/output.txt 
 
-# python  TEST_basic_v4.py    --TEST_ID FINAL_V1_ID011    --dataset flowers102    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 102    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
-# python  TEST_basic_v4_val.py    --TEST_ID FINAL_V1_ID011    --dataset flowers102    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 102    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+python  TEST_basic_v4.py    --TEST_ID FINAL_V1_ID011    --dataset flowers102    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 102    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+python  TEST_basic_v4_val.py    --TEST_ID FINAL_V1_ID011    --dataset flowers102    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 102    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
 
 # python  TEST_glvit_v14.py    --TEST_ID FINAL_V1_ID012    --dataset flowers102    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 102    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
 # python  TEST_glvit_v14_val.py    --TEST_ID FINAL_V1_ID012    --dataset flowers102    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 102    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/FINAL_V1_ID012/accuracy_stats/output.txt 
