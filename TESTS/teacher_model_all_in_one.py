@@ -93,7 +93,7 @@ def main(dataset = 'cifar10',
         set_seed(seed=SEED)
 
     # Set up the vit model
-    model = create_model('regnety_032', pretrained=True, num_classes=num_classes).to(device)
+    model = create_model('regnety_016', pretrained=True, num_classes=num_classes).to(device)
 
     
     # CIFAR-10
