@@ -1,8 +1,8 @@
 # python teacher_model.py --TEST_ID TEACHER_CIFAR10 --dataset cifar10 --batch_size 128 --n_epoch 100 --image_size 32 --patch_size 4 --num_classes 10 --dim 64 --depth 6 --heads 8 --mlp_dim 128
 # python teacher_model_val.py --TEST_ID TEACHER_CIFAR10 --dataset cifar10 --batch_size 128 --n_epoch 100 --image_size 32 --patch_size 4 --num_classes 10 --dim 64 --depth 6 --heads 8 --mlp_dim 128
 
-python teacher_model.py --TEST_ID TEACHER_CIFAR100 --dataset cifar100 --batch_size 128 --n_epoch 100 --image_size 32 --patch_size 4 --num_classes 100 --dim 64 --depth 6 --heads 8 --mlp_dim 128
-python teacher_model_val.py --TEST_ID TEACHER_CIFAR100 --dataset cifar100 --batch_size 128 --n_epoch 100 --image_size 32 --patch_size 4 --num_classes 100 --dim 64 --depth 6 --heads 8 --mlp_dim 128
+python teacher_model.py --TEST_ID TEACHER_CIFAR100 --dataset cifar100 --batch_size 128 --n_epoch 10 --image_size 32 --patch_size 4 --num_classes 100 --dim 64 --depth 6 --heads 8 --mlp_dim 128
+python teacher_model_val.py --TEST_ID TEACHER_CIFAR100 --dataset cifar100 --batch_size 128 --n_epoch 10 --image_size 32 --patch_size 4 --num_classes 100 --dim 64 --depth 6 --heads 8 --mlp_dim 128
 
 # python teacher_model.py --TEST_ID TEACHER_MNIST --dataset mnist --batch_size 128 --n_epoch 100 --image_size 32 --patch_size 4 --num_classes 10 --dim 64 --depth 6 --heads 8 --mlp_dim 128
 # python teacher_model_val.py --TEST_ID TEACHER_MNIST --dataset mnist --batch_size 128 --n_epoch 100 --image_size 32 --patch_size 4 --num_classes 10 --dim 64 --depth 6 --heads 8 --mlp_dim 128
