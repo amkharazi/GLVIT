@@ -260,7 +260,6 @@ def main(dataset = 'cifar10',
     
     # Define train and test functions (use examples)
     scheduler = get_cosine_schedule_with_warmup(optimizer, num_warmup_epochs=10, num_training_epochs=n_epoch)
-
     
     def train_epoch(loader, epoch):
         model.train()
@@ -295,7 +294,7 @@ def main(dataset = 'cifar10',
         
         scheduler.step()
 
-        return report_train
+        return report_train, top1_acc
 
     
     # Set up the directories to save the results
@@ -310,9 +309,15 @@ def main(dataset = 'cifar10',
         f.write(f'total number of parameters:\n{num_parameters}\n dataset is {dataset}\n seed is ${SEED}')
 
     # Train from Scratch - Just Train
+    best_acc = 0.0
     print(f'Training for {len(range(n_epoch))} epochs\n')
     for epoch in range(0+1,n_epoch+1):
-        report_train = train_epoch(train_loader, epoch)
+        report_train, top1_acc = train_epoch(train_loader, epoch)
+
+        if top1_acc>best_acc:
+            best_acc=top1_acc
+            model_path = os.path.join(result_dir, 'model_stats', f'Best_Train_Model.pth')
+            torch.save(model.state_dict(), model_path)
     
         report = report_train + '\n'
         if epoch % 5 == 0:
