@@ -34,7 +34,7 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from Utils.distillation_loss import DistillationLoss
 import timm
 
-teacher_model_path = 'PATH_TO_TEACHER_MODEL_PTH_FILE'
+teacher_model_path = '../teacher_model/best_model.pth'
 
 
 
