@@ -1,3 +1,4 @@
 /datasets/
 **/__pycache__/
 results/**/model_stats/*.pth
+/teacher_model/

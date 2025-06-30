@@ -31,6 +31,11 @@ import random
 from torchvision.transforms import RandAugment, RandomErasing
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
+from timm.data import Mixup
+from timm.loss import LabelSmoothingCrossEntropy
+
+
+
 
 
 def set_seed(seed: int = 42):
@@ -43,20 +48,20 @@ def set_seed(seed: int = 42):
     torch.backends.cudnn.benchmark = False
 
 
-def mixup_data(x, y, alpha=0.8):
-    '''Returns mixed inputs, pairs of targets, and lambda'''
-    if alpha > 0:
-        lam = np.random.beta(alpha, alpha)
-    else:
-        lam = 1
-    batch_size = x.size()[0]
-    index = torch.randperm(batch_size).to(x.device)
-    mixed_x = lam * x + (1 - lam) * x[index, :]
-    y_a, y_b = y, y[index]
-    return mixed_x, y_a, y_b, lam
+# def mixup_data(x, y, alpha=0.8):
+#     '''Returns mixed inputs, pairs of targets, and lambda'''
+#     if alpha > 0:
+#         lam = np.random.beta(alpha, alpha)
+#     else:
+#         lam = 1
+#     batch_size = x.size()[0]
+#     index = torch.randperm(batch_size).to(x.device)
+#     mixed_x = lam * x + (1 - lam) * x[index, :]
+#     y_a, y_b = y, y[index]
+#     return mixed_x, y_a, y_b, lam
 
-def mixup_criterion(criterion, pred, y_a, y_b, lam):
-    return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
+# def mixup_criterion(criterion, pred, y_a, y_b, lam):
+#     return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
 
 
 def get_cosine_schedule_with_warmup(optimizer, num_warmup_epochs, num_training_epochs):
@@ -254,7 +259,20 @@ def main(dataset = 'cifar10',
     num_parameters = count_parameters(model)
     print(f'This Model has {num_parameters} parameters')
     
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    mixup_fn = Mixup(
+        mixup_alpha=0.8,
+        cutmix_alpha=1.0,
+        cutmix_minmax=None,
+        prob=1.0,
+        switch_prob=0.5,
+        mode='batch',
+        label_smoothing=0.1,   
+        num_classes=num_classes
+    )
+    
+    # criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    criterion = LabelSmoothingCrossEntropy(smoothing=0.1)
+    
     optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=0.05)
     
     
@@ -270,17 +288,25 @@ def main(dataset = 'cifar10',
 
         for i, (inputs, targets) in enumerate(loader):
             inputs, targets = inputs.to(device), targets.to(device)
-            inputs, targets_a, targets_b, lam = mixup_data(inputs, targets, alpha=0.8)
-        
+            # inputs, targets_a, targets_b, lam = mixup_data(inputs, targets, alpha=0.8)
+            inputs, targets = mixup_fn(inputs, targets)
+
             optimizer.zero_grad()
             outputs = model(inputs)
-            loss = mixup_criterion(criterion, outputs, targets_a, targets_b, lam)
+
+            # loss = mixup_criterion(criterion, outputs, targets_a, targets_b, lam)
+            _targets = targets
+            if targets.dim() == 2 and targets.size(1) > 1:
+                _targets = targets.argmax(dim=1)
+            _targets = _targets.long()
+
+            loss = criterion(outputs, _targets)
         
             loss.backward()
             optimizer.step()
 
             running_loss += loss.item()
-            accuracies = topk_accuracy(outputs, targets, topk=(1, 2, 3, 4, 5))
+            accuracies = topk_accuracy(outputs, _targets, topk=(1, 2, 3, 4, 5))
             for k in accuracies:
                 correct[k] += accuracies[k]['correct']
             # print(f'batch{i} done!')

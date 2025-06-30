@@ -4,7 +4,7 @@ sys.path.append('..')
 
 # Import Libraries
 
-from Models.glvit_v7 import VisionTransformer
+from Models.vit_timm import VisionTransformer
 from Utils.cifar10_loaders import get_cifar10_dataloaders
 from Utils.cifar100_loaders import get_cifar100_dataloaders
 from Utils.mnist_loaders import get_mnist_dataloaders
@@ -92,16 +92,7 @@ def main(dataset = 'cifar10',
         set_seed(seed=SEED)
 
     # Set up the vit model
-    model = VisionTransformer(img_size=image_size,
-                               patch_size=patch_size,
-                                 in_channels=3,
-                                   num_classes=num_classes,
-                                     dim=dim,
-                                       depth=depth,
-                                         heads=heads,
-                                           mlp_dim=mlp_dim,
-                                             dropout=0.1,
-                                               second_path_size=second_path_size).to(device)
+    model = VisionTransformer(num_classes=num_classes).to(device)
     
     # CIFAR-10
     if dataset == 'cifar10':
@@ -260,6 +251,7 @@ def main(dataset = 'cifar10',
     
     # Define train and test functions (use examples)
     scheduler = get_cosine_schedule_with_warmup(optimizer, num_warmup_epochs=10, num_training_epochs=n_epoch)
+
     
     def train_epoch(loader, epoch):
         model.train()
@@ -320,9 +312,9 @@ def main(dataset = 'cifar10',
             torch.save(model.state_dict(), model_path)
     
         report = report_train + '\n'
-        if epoch % 5 == 0:
-            model_path = os.path.join(result_dir, 'model_stats', f'Model_epoch_{epoch}.pth')
-            torch.save(model.state_dict(), model_path)
+        
+        # model_path = os.path.join(result_dir, 'model_stats', f'Model_epoch_{epoch}.pth')
+        # torch.save(model.state_dict(), model_path)
         with open(os.path.join(result_dir, 'accuracy_stats', 'report_train.txt'), 'a') as f:
             f.write(report)     
 

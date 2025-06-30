@@ -31,7 +31,10 @@ import random
 from torchvision.transforms import RandAugment, RandomErasing
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
+from Utils.distillation_loss import DistillationLoss
+import timm
 
+teacher_model_path = '../teacher_model/best_model.pth'
 
 def set_seed(seed: int = 42):
     random.seed(seed) 
@@ -55,8 +58,11 @@ def mixup_data(x, y, alpha=0.8):
     y_a, y_b = y, y[index]
     return mixed_x, y_a, y_b, lam
 
-def mixup_criterion(criterion, pred, y_a, y_b, lam):
-    return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
+# def mixup_criterion(criterion, pred, y_a, y_b, lam):
+#     return lam * criterion(pred, y_a) + (1 - lam) * criterion(pred, y_b)
+
+def mixup_distillation_criterion(criterion, inputs, outputs, y_a, y_b, lam):
+    return lam * criterion(inputs, outputs, y_a) + (1 - lam) * criterion(inputs, outputs, y_b)
 
 
 def get_cosine_schedule_with_warmup(optimizer, num_warmup_epochs, num_training_epochs):
@@ -79,7 +85,10 @@ def main(dataset = 'cifar10',
          heads = 8,
          mlp_dim = 128, 
          second_path_size = None,
-         SEED = None):
+         SEED = None,
+         distillation_type='soft',
+         distillation_alpha=0.5,
+         distillation_tau=1):
     
     # Setup the device
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -254,9 +263,16 @@ def main(dataset = 'cifar10',
     num_parameters = count_parameters(model)
     print(f'This Model has {num_parameters} parameters')
     
-    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
-    optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=0.05)
     
+    teacher_model = timm.create_model('regnety_032',pretrained=False,num_classes=num_classes)
+    teacher_model.load_state_dict(torch.load(teacher_model_path))
+    teacher_model.to(device)
+    teacher_model.eval()
+    
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    criterion = DistillationLoss(criterion, teacher_model, distillation_type, distillation_alpha, distillation_tau)
+    
+    optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=0.05)
     
     # Define train and test functions (use examples)
     scheduler = get_cosine_schedule_with_warmup(optimizer, num_warmup_epochs=10, num_training_epochs=n_epoch)
@@ -274,7 +290,10 @@ def main(dataset = 'cifar10',
         
             optimizer.zero_grad()
             outputs = model(inputs)
-            loss = mixup_criterion(criterion, outputs, targets_a, targets_b, lam)
+            # loss = mixup_criterion(criterion, outputs, targets_a, targets_b, lam)
+            loss = mixup_distillation_criterion(criterion, inputs, outputs, targets_a, targets_b, lam)
+
+
         
             loss.backward()
             optimizer.step()
@@ -345,6 +364,9 @@ if __name__ == '__main__':
     parser.add_argument('--mlp_dim', type=int, default=128, help='MLP hidden layer dimension')
     parser.add_argument('--seed', type=int, default=None, help='The randomness seed')
     parser.add_argument('--second_patch_size', type=int, default=None, help='The second patch size used for local global feature extraction')
+    parser.add_argument('--dis_type', default='soft', choices=['none', 'soft', 'hard'], type=str, help="")
+    parser.add_argument('--dis_alpha', default=0.5, type=float, help="")
+    parser.add_argument('--dis_tau', default=1.0, type=float, help="")
     
     
     # Parse the arguments
@@ -352,7 +374,8 @@ if __name__ == '__main__':
     
     # Call the main function with the parsed arguments
     main(args.dataset, args.TEST_ID, args.batch_size, args.n_epoch, args.image_size, args.train_size,
-         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.second_patch_size,args.seed)
+         args.patch_size, args.num_classes, args.dim, args.depth, args.heads, args.mlp_dim,args.second_patch_size,args.seed, 
+         args.dis_type, args.dis_alpha, args.dis_tau)
 
 
     
