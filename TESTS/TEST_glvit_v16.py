@@ -290,17 +290,23 @@ def main(dataset = 'cifar10',
             inputs, targets = inputs.to(device), targets.to(device)
             # inputs, targets_a, targets_b, lam = mixup_data(inputs, targets, alpha=0.8)
             inputs, targets = mixup_fn(inputs, targets)
-        
+
             optimizer.zero_grad()
             outputs = model(inputs)
+
             # loss = mixup_criterion(criterion, outputs, targets_a, targets_b, lam)
-            loss = criterion(outputs, targets)
+            _targets = targets
+            if targets.dim() == 2 and targets.size(1) > 1:
+                _targets = targets.argmax(dim=1)
+            _targets = _targets.long()
+
+            loss = criterion(outputs, _targets)
         
             loss.backward()
             optimizer.step()
 
             running_loss += loss.item()
-            accuracies = topk_accuracy(outputs, targets, topk=(1, 2, 3, 4, 5))
+            accuracies = topk_accuracy(outputs, _targets, topk=(1, 2, 3, 4, 5))
             for k in accuracies:
                 correct[k] += accuracies[k]['correct']
             # print(f'batch{i} done!')

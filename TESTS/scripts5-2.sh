@@ -1,5 +1,5 @@
 # python  TEST_glvit_v16.py    --TEST_ID EXP_CIFAR100_ID001    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
 # python  TEST_glvit_v16_val.py    --TEST_ID EXP_CIFAR100_ID001    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/EXP_CIFAR100_ID001/accuracy_stats/output.txt 
 
-python  TEST_basic_v15.py    --TEST_ID DIST_CIFAR100_ID001    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
-python  TEST_basic_v15_val.py    --TEST_ID DIST_CIFAR100_ID001    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/DIST_CIFAR100_ID001/accuracy_stats/output.txt
+python  TEST_glvit_v15.py    --TEST_ID DIST_CIFAR100_ID001    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 
+python  TEST_glvit_v15_val.py    --TEST_ID DIST_CIFAR100_ID001    --dataset cifar100    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 100    --dim 192    --depth 9   --heads 12   --mlp_dim 384 --print_w True > ../results/DIST_CIFAR100_ID001/accuracy_stats/output.txt
