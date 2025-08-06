@@ -1,6 +1,7 @@
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader, random_split, ConcatDataset
 from torchvision.datasets import OxfordIIITPet
+import torch
 
 def get_oxford_pets_dataloaders(
     data_dir='../datasets',
@@ -45,11 +46,11 @@ def get_oxford_pets_dataloaders(
     if train_size != 'default':
         train_size = int(train_size)
         temp_test_size = total_size - train_size
-        train_dataset, test_dataset = random_split(full_dataset, [train_size, temp_test_size])
+        train_dataset, test_dataset = random_split(full_dataset, [train_size, temp_test_size], generator=torch.Generator().manual_seed(1998))
     else:
         train_size_default = int(0.8 * total_size)
         test_size_default = total_size - train_size_default
-        train_dataset, test_dataset = random_split(full_dataset, [train_size_default, test_size_default])
+        train_dataset, test_dataset = random_split(full_dataset, [train_size_default, test_size_default], generator=torch.Generator().manual_seed(1998))
 
     train_dataset.dataset.transform = transform_train
     test_dataset.dataset.transform = transform_test
