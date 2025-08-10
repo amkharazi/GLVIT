@@ -1,0 +1,5 @@
+# python  TEST_glvit_v14.py    --TEST_ID FINAL_TINY_V1_ID014    --dataset stl10    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 192
+# python  TEST_glvit_v14_val.py    --TEST_ID FINAL_TINY_V1_ID014    --dataset stl10    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 192 --print_w True > ../results/FINAL_TINY_V1_ID014/accuracy_stats/output.txt 
+
+# python  TEST_basic_v4.py    --TEST_ID FINAL_TINY_V1_ID013    --dataset stl10    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 192 
+# python  TEST_basic_v4_val.py    --TEST_ID FINAL_TINY_V1_ID013    --dataset stl10    --batch_size 256 --n_epoch 600 --image_size 32  --patch_size 4  --num_classes 10    --dim 64    --depth 6   --heads 8   --mlp_dim 192 
