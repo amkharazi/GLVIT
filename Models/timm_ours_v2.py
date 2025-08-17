@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import timm
 
 class VisionTransformer(nn.Module):
@@ -19,81 +20,80 @@ class VisionTransformer(nn.Module):
         drop_path=0.1,
         attention_method='default'
     ):
-        super(VisionTransformer, self).__init__()
-
-        vit = timm.create_model('vit_base_patch16_224', pretrained=True, num_classes=num_classes)
-        self.vit_blocks = vit.blocks            
-        self.vit_norm = vit.norm                
-        self.vit_pos_drop = vit.pos_drop        
-        self.vit_head = vit.head                
-
-        self.conv1 = nn.Conv2d(in_channels=3, out_channels=768, kernel_size=16, stride=16)  
-        self.conv2 = nn.Conv2d(in_channels=3, out_channels=3,   kernel_size=4,  stride=4)   
-        self.conv3 = nn.Conv2d(in_channels=3, out_channels=768, kernel_size=4,  stride=4)   
-
-        self.cls_token1 = nn.Parameter(torch.zeros(1, 1, 768))
-        self.cls_token3 = nn.Parameter(torch.zeros(1, 1, 768))
-
-        self.pos_embed1 = nn.Parameter(torch.zeros(1, 197, 768))
-        self.pos_embed3 = nn.Parameter(torch.zeros(1, 197, 768))
-
-        # Init tokens / pos embeds ##################################################################
-        # Init tokens / pos embeds ##################################################################
-        nn.init.trunc_normal_(self.cls_token1, std=0.02)
-        nn.init.trunc_normal_(self.cls_token3, std=0.02)
-        nn.init.trunc_normal_(self.pos_embed1, std=0.02)
-        nn.init.trunc_normal_(self.pos_embed3, std=0.02)
-        # Init tokens / pos embeds ##################################################################
-        # Init tokens / pos embeds ##################################################################
-
-        self.mlp_intermediate = nn.Sequential(
-            nn.LayerNorm(768 * 2),
-            nn.Linear(768 * 2, 768),
-            nn.GELU(),
-            nn.Dropout(dropout),
-        )
-        
-        for p in self.parameters():
+        super().__init__()
+        self.img_size = img_size
+        self.num_classes = num_classes
+        self.vit = timm.create_model('vit_base_patch16_224', pretrained=True, num_classes=0)
+        for p in self.vit.parameters():
             p.requires_grad = False
-
-        for p in self.mlp_intermediate.parameters():
-            p.requires_grad = True
-
-        for p in self.vit_head.parameters():
-            p.requires_grad = True
+        self.conv = nn.Conv2d(3, 3, kernel_size=4, stride=4)
+        self.mlp_intermediate = nn.Linear(768 * 2, 768)
+        self.mlp_head = nn.Linear(768, num_classes)
 
     def forward(self, x):
-        feat1 = self.conv1(x)                   
-        feat3 = self.conv3(self.conv2(x))        
-
-        B = x.size(0)
-
-        feat1 = feat1.flatten(2).transpose(1, 2)  
-        feat3 = feat3.flatten(2).transpose(1, 2)  
-
-        cls1 = self.cls_token1.expand(B, -1, -1)  
-        cls3 = self.cls_token3.expand(B, -1, -1)  
-
-        feat1 = torch.cat([cls1, feat1], dim=1)  
-        feat3 = torch.cat([cls3, feat3], dim=1)  
-
-        # feat1 = self.vit_pos_drop(feat1 + self.pos_embed1)
-        # feat3 = self.vit_pos_drop(feat3 + self.pos_embed3)
-        feat1 = feat1 + self.pos_embed1
-        feat3 = feat3 + self.pos_embed3
-
-        out1 = self.vit_blocks(feat1)            
-        out3 = self.vit_blocks(feat3)            
-
-        out1 = self.vit_norm(out1)
-        out3 = self.vit_norm(out3)
-
-        cls1 = out1[:, 0]                       
-        cls3 = out3[:, 0]                         
-        combined = torch.cat([cls1, cls3], dim=1) 
-
-        fused = self.mlp_intermediate(combined)  
-
-        logits = self.vit_head(fused)
+        cls1 = self.vit(x)
+        x2 = self.conv(x)
+        x2 = F.interpolate(x2, size=(self.img_size, self.img_size), mode='bicubic', align_corners=False)
+        cls2 = self.vit(x2)
+        fused = self.mlp_intermediate(torch.cat([cls1, cls2], dim=1))
+        logits = self.mlp_head(fused)
         return logits
 
+
+def count_and_check(model):
+    print("Trainable parameters by tensor:")
+    for n, p in model.named_parameters():
+        if p.requires_grad:
+            print(f"{n:60s} {p.numel()}")
+
+    groups = {}
+
+    def group_total(mod):
+        return sum(p.numel() for p in mod.parameters() if p.requires_grad)
+
+    groups["conv"] = group_total(model.conv)
+    groups["mlp_intermediate"] = group_total(model.mlp_intermediate)
+    groups["mlp_head"] = group_total(model.mlp_head)
+
+    vit_backbone_trainable = sum(
+        p.numel() for n, p in model.vit.named_parameters()
+        if p.requires_grad
+    )
+    if vit_backbone_trainable > 0:
+        groups["vit_backbone"] = vit_backbone_trainable
+
+    print("\nGrouped totals:")
+    for k, v in groups.items():
+        print(f"{k:20s} {v}")
+
+    grouped_sum = sum(groups.values())
+    model_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+    print("\nSummaries:")
+    print("sum(groups):               ", grouped_sum)
+    print("model trainable total:     ", model_trainable)
+    print("equal:", grouped_sum == model_trainable)
+
+
+def shape_sanity(model, batch_size=2, img_size=224):
+    x = torch.randn(batch_size, 3, img_size, img_size)
+    with torch.no_grad():
+        cls1 = model.vit(x)
+        x2 = model.conv(x)
+        x2 = F.interpolate(x2, size=(model.img_size, model.img_size), mode='bicubic', align_corners=False)
+        cls2 = model.vit(x2)
+        fused = model.mlp_intermediate(torch.cat([cls1, cls2], dim=1))
+        logits = model.mlp_head(fused)
+
+    print("\nShape sanity check:")
+    print("input:", tuple(x.shape))
+    print("cls1 (vit(x)):", tuple(cls1.shape))
+    print("cls2 (vit(x2)):", tuple(cls2.shape))
+    print("fused (after mlp_intermediate):", tuple(fused.shape))
+    print("logits:", tuple(logits.shape))
+
+
+if __name__ == "__main__":
+    m = VisionTransformer(num_classes=10)
+    count_and_check(m)
+    shape_sanity(m, batch_size=2, img_size=224)
