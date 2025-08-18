@@ -266,7 +266,7 @@ def main(dataset = 'cifar10',
             transforms.ToTensor(),
             transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
         ])
-        _, test_loader = get_food101_dataloaders(args.data_root, transform_train, transform_test, batch_size, image_size, train_size, repeat_count=5)   
+        _, test_loader = get_food101_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size, repeat_count=5)   
          
     num_parameters = count_parameters(model)
     print(f'This Model has {num_parameters} parameters')
