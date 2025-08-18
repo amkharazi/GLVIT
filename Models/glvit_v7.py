@@ -202,3 +202,47 @@ class VisionTransformer(nn.Module):
         cls_output2 = x[:, middle_idx + 1]
         combined_cls_output = torch.cat((cls_output1, cls_output2), dim=1)
         return self.mlp_head(combined_cls_output)
+
+import copy
+import torch
+from torchtnt.utils.flops import FlopTensorDispatchMode
+
+def count_gflops(module, inputs, include_backward=True):
+    was_training = module.training
+    module.eval()
+    with FlopTensorDispatchMode(module) as ftdm:
+        out = module(*inputs) if isinstance(inputs, (list, tuple)) else module(inputs)
+        res = out if out.dim() == 0 else out.mean()
+        flops_forward = copy.deepcopy(ftdm.flop_counts)
+        flops_backward = {}
+        if include_backward:
+            ftdm.reset()
+            module.zero_grad(set_to_none=True)
+            res.backward()
+            flops_backward = copy.deepcopy(ftdm.flop_counts)
+    if was_training:
+        module.train()
+    fwd = sum(flops_forward.values()) if isinstance(flops_forward, dict) else int(flops_forward)
+    bwd = sum(flops_backward.values()) if isinstance(flops_backward, dict) else int(flops_backward) if flops_backward else 0
+    return {"forward": fwd / 1e9, "backward": bwd / 1e9, "total": (fwd + bwd) / 1e9}
+
+if __name__ == "__main__":
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model = VisionTransformer(
+        img_size=32,
+        patch_size=4,
+        in_channels=3,
+        num_classes=10,
+        dim=192,
+        depth=9,
+        heads=12,
+        mlp_dim=384,
+        dropout=0.1,
+        second_path_size=None,
+        print_w=False,
+        drop_path=0.1,
+    ).to(device)
+    x = torch.randn(256, 3, 32, 32, device=device)
+    gflops = count_gflops(model, x, include_backward=True)
+    per_sample = {k: v / 256.0 for k, v in gflops.items()}
+    print({"batch_gflops": gflops, "per_sample_gflops": per_sample})
