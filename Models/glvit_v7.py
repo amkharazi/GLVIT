@@ -207,6 +207,17 @@ import copy
 import torch
 from torchtnt.utils.flops import FlopTensorDispatchMode
 
+import copy
+import torch
+from torchtnt.utils.flops import FlopTensorDispatchMode
+
+def _sum_flops(obj):
+    if isinstance(obj, (int, float)):
+        return obj
+    if isinstance(obj, dict):
+        return sum(_sum_flops(v) for v in obj.values())
+    return 0
+
 def count_gflops(module, inputs, include_backward=True):
     was_training = module.training
     module.eval()
@@ -222,9 +233,14 @@ def count_gflops(module, inputs, include_backward=True):
             flops_backward = copy.deepcopy(ftdm.flop_counts)
     if was_training:
         module.train()
-    fwd = sum(flops_forward.values()) if isinstance(flops_forward, dict) else int(flops_forward)
-    bwd = sum(flops_backward.values()) if isinstance(flops_backward, dict) else int(flops_backward) if flops_backward else 0
-    return {"forward": fwd / 1e9, "backward": bwd / 1e9, "total": (fwd + bwd) / 1e9}
+    fwd = _sum_flops(flops_forward)
+    bwd = _sum_flops(flops_backward)
+    return {
+        "forward": fwd / 1e9,
+        "backward": bwd / 1e9,
+        "total": (fwd + bwd) / 1e9,
+    }
+
 
 if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
