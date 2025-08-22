@@ -6,7 +6,18 @@ class VisionTransformer(nn.Module):
     def __init__(
         self,
         img_size=224,
-        num_classes=10
+        patch_size=16,
+        in_channels=3,
+        num_classes=10,
+        dim=64,
+        depth=6,
+        heads=8,
+        mlp_dim=128,
+        dropout=0.1,
+        second_path_size=None,
+        print_w=False,
+        drop_path=0.1,
+        attention_method='default'
     ):
         super().__init__()
         self.img_size = img_size
