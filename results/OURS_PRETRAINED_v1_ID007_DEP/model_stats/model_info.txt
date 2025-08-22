@@ -1,0 +1,10 @@
+total number of parameters:
+87917051
+ dataset is cifar100
+ seed is $Nonetotal number of parameters:
+87917051
+ dataset is cifar100
+ seed is $Nonetotal number of parameters:
+87917051
+ dataset is cifar100
+ seed is $None
