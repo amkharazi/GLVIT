@@ -183,7 +183,8 @@ def main():
     # Results / checkpoints
     parser.add_argument('--TEST_ID_ALGA', type=str, required=True, help='../results/<id>/model_stats for ALGA')
     parser.add_argument('--TEST_ID_ORIG', type=str, required=True, help='../results/<id>/model_stats for Original')
-    parser.add_argument('--eval_epoch', type=int, default=None, help='ONLY evaluate this epoch if provided')
+    parser.add_argument('--eval_epoch_alga', type=int, default=None, help='ONLY evaluate this epoch if provided')
+    parser.add_argument('--eval_epoch_orig', type=int, default=None, help='ONLY evaluate this epoch if provided')
     parser.add_argument('--every_k', type=int, default=5, help='If sweeping, evaluate epochs divisible by k')
 
     # Output controls
@@ -213,11 +214,11 @@ def main():
     out_root = os.path.join(args.out_dir, f'{args.dataset}__{args.TEST_ID_ALGA}__vs__{args.TEST_ID_ORIG}')
     os.makedirs(out_root, exist_ok=True)
 
-    def eval_at_epoch(epoch: int):
-        print(f'\n=== Evaluating epoch {epoch} ===')
+    def eval_at_epoch(epoch1: int, epoch2: int):
+        print(f'\n=== Evaluating epoch {epoch1} and {epoch2} ===')
 
-        ckpt_a = os.path.join(ckpt_dir_alga, f'Model_epoch_{epoch}.pth')
-        ckpt_o = os.path.join(ckpt_dir_orig, f'Model_epoch_{epoch}.pth')
+        ckpt_a = os.path.join(ckpt_dir_alga, f'Model_epoch_{epoch1}.pth')
+        ckpt_o = os.path.join(ckpt_dir_orig, f'Model_epoch_{epoch2}.pth')
         if not os.path.isfile(ckpt_a):
             print(f'[WARN] Missing ALGA checkpoint: {ckpt_a}')
             return
@@ -248,7 +249,7 @@ def main():
 
         # Optional image saving
         if args.save_images:
-            img_root = os.path.join(out_root, f'epoch_{epoch:04d}_imgs')
+            img_root = os.path.join(out_root, f'epoch_{epoch1:04d}_imgs')
             for sub in ['t1_only_alga_wrong','t1_only_orig_wrong','t1_both_wrong',
                         't5_only_alga_miss','t5_only_orig_miss','t5_both_miss']:
                 os.makedirs(os.path.join(img_root, sub), exist_ok=True)
@@ -349,7 +350,7 @@ def main():
         elapsed = time.time() - start
 
         # CSVs
-        csv_t1 = os.path.join(out_root, f'epoch_{epoch:04d}_misclassified_top1.csv')
+        csv_t1 = os.path.join(out_root, f'epoch_{epoch1:04d}_misclassified_top1.csv')
         with open(csv_t1, 'w', newline='') as f:
             w = csv.writer(f)
             w.writerow(['dataset_index','true_label','alga_pred','orig_pred','bucket'])
@@ -357,7 +358,7 @@ def main():
             for row in only_orig_wrong_t1: w.writerow([*row, 'ORIG_wrong_ONLY'])
             for row in both_wrong_t1:      w.writerow([*row, 'BOTH_wrong'])
 
-        csv_t5 = os.path.join(out_root, f'epoch_{epoch:04d}_misclassified_top5.csv')
+        csv_t5 = os.path.join(out_root, f'epoch_{epoch1:04d}_misclassified_top5.csv')
         with open(csv_t5, 'w', newline='') as f:
             w = csv.writer(f)
             w.writerow(['dataset_index','true_label','alga_pred','orig_pred','bucket'])
@@ -367,7 +368,7 @@ def main():
 
         # summary line
         rep = (
-            f"Epoch {epoch} | "
+            f"Epoch {epoch1} | "
             f"ALGA: top1={topk_a[0]:.4f} top5={topk_a[4]:.4f} loss={avg_loss_a:.6f} | "
             f"ORIG: top1={topk_o[0]:.4f} top5={topk_o[4]:.4f} loss={avg_loss_o:.6f} | "
             f"time={elapsed:.2f}s | "
@@ -379,8 +380,8 @@ def main():
             f.write(rep + '\n')
 
     # Epoch selection
-    if args.eval_epoch is not None:
-        eval_at_epoch(args.eval_epoch)
+    if args.eval_epoch_alga is not None and args.eval_epoch_orig is not None:
+        eval_at_epoch(args.eval_epoch_alga, args.eval_epoch_orig)
     else:
         def available_epochs(ckpt_dir):
             eps = []
@@ -397,7 +398,7 @@ def main():
         if not common:
             print('[WARN] No common checkpoints found that match --every_k.')
         for e in common:
-            eval_at_epoch(e)
+            eval_at_epoch(e,e)
 
 if __name__ == '__main__':
     main()
