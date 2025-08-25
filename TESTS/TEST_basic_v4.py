@@ -12,6 +12,7 @@ from Utils.tinyimagenet_loaders import get_tinyimagenet_dataloaders
 from Utils.fashionmnist_loaders import get_fashionmnist_dataloaders
 from Utils.flowers102_loaders import get_flowers102_dataloaders
 from Utils.oxford_pets_loaders import get_oxford_pets_dataloaders
+from Utils.food101_loaders import get_food101_dataloaders
 from Utils.stl10_classification_loaders import get_stl10_classification_dataloaders
 
 from Utils.accuracy_measures import topk_accuracy
@@ -250,6 +251,23 @@ def main(dataset = 'cifar10',
         ])
         train_loader, _ = get_stl10_classification_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size, repeat_count=5)
     
+    if dataset == 'food101':
+        transform_train = transforms.Compose([
+            RandAugment(),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0)),
+            transforms.RandomRotation(10),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+            RandomErasing(p=0.25)
+        ])
+        transform_test = transforms.Compose([
+            transforms.Resize((image_size, image_size)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+        ])
+        _, test_loader = get_food101_dataloaders('../datasets', transform_train, transform_test, batch_size, image_size, train_size, repeat_count=5)   
+         
     num_parameters = count_parameters(model)
     print(f'This Model has {num_parameters} parameters')
     

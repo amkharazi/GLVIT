@@ -4,7 +4,7 @@ sys.path.append('..')
 
 # Import Libraries
 
-from Models.glvit_v7 import VisionTransformer
+from Models.glvit_v11 import VisionTransformer
 from Utils.cifar10_loaders import get_cifar10_dataloaders
 from Utils.cifar100_loaders import get_cifar100_dataloaders
 from Utils.mnist_loaders import get_mnist_dataloaders

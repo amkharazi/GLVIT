@@ -64,17 +64,17 @@ class MultiHeadAttention(nn.Module):
         self.scale = self.head_dim ** -0.5
 
         self.q_proj1 = nn.Linear(dim, dim)
-        self.q_proj2 = nn.Linear(dim, dim)
+        # self.q_proj2 = nn.Linear(dim, dim)
 
         self.k_proj1 = nn.Linear(dim, dim)
-        self.k_proj2 = nn.Linear(dim, dim)
+        # self.k_proj2 = nn.Linear(dim, dim)
 
         self.fc_out = nn.Linear(dim, dim)
 
         self.weights = nn.Parameter(torch.randn(4))
 
         self.v_proj1 = nn.Linear(dim, dim)
-        self.v_proj2 = nn.Linear(dim, dim)
+        # self.v_proj2 = nn.Linear(dim, dim)
 
         self.print_w=print_w
 
@@ -84,12 +84,14 @@ class MultiHeadAttention(nn.Module):
 
         q1 = self.q_proj1(x[:, :N + 1])
         q1 = rearrange(q1, "b n (h d) -> b h n d", h=self.num_heads, d=self.head_dim)
-        q2 = self.q_proj2(x[:, N + 1:])
+        # q2 = self.q_proj2(x[:, N + 1:])
+        q2 = self.q_proj1(x[:, N + 1:])
         q2 = rearrange(q2, "b n (h d) -> b h n d", h=self.num_heads, d=self.head_dim)
 
         k1 = self.k_proj1(x[:, :N + 1])
         k1 = rearrange(k1, "b n (h d) -> b h n d", h=self.num_heads, d=self.head_dim)
-        k2 = self.k_proj2(x[:, N + 1:])
+        # k2 = self.k_proj2(x[:, N + 1:])
+        k2 = self.k_proj1(x[:, N + 1:])
         k2 = rearrange(k2, "b n (h d) -> b h n d", h=self.num_heads, d=self.head_dim)
 
         q = torch.cat((q1, q2), dim=2)
@@ -105,7 +107,8 @@ class MultiHeadAttention(nn.Module):
         # print(v1.shape)
         v1 = rearrange(v1, "b n (h d) -> b h n d", h=self.num_heads, d=self.head_dim)
 
-        v2 = self.v_proj2(x[:, N + 1:])
+        # v2 = self.v_proj2(x[:, N + 1:])
+        v2 = self.v_proj1(x[:, N + 1:])
         # print(v2.shape)
         v2 = rearrange(v2, "b n (h d) -> b h n d", h=self.num_heads, d=self.head_dim)
 
