@@ -69,7 +69,7 @@ def main(dataset = 'cifar10',
 
 
     # Set up the vit model
-    model = VisionTransformer(num_classes=num_classes, attention_method=attention_method).to(device)
+    model = VisionTransformer(num_classes=num_classes).to(device)
 
     # CIFAR-10
     if dataset == 'cifar10':

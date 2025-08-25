@@ -1,1 +1,1 @@
-python test_dual_models.py --dataset cifar10 --data_root ../datasets --image_size 32 --num_classes 10 --TEST_ID_ALGA Test_ID001 --TEST_ID_ORIG Test_ID_BASELINE --eval_epoch 95 --save_images
+python misclassify.py --dataset cifar10 --data_root ../datasets --image_size 32 --num_classes 10 --TEST_ID_ALGA Test_ID001 --TEST_ID_ORIG Test_ID_BASELINE --eval_epoch 95
