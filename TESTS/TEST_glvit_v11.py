@@ -68,7 +68,7 @@ def get_cosine_schedule_with_warmup(optimizer, num_warmup_epochs, num_training_e
 
 def main(dataset = 'cifar10', 
         TEST_ID = 'Test_ID001',
-         batch_size = 32,
+         batch_size = 256,
          n_epoch = 200,
          image_size = 32,
          train_size = 'default',

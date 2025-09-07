@@ -1,0 +1,4 @@
+total number of parameters:
+2750577
+ dataset is flowers102
+ seed is $None

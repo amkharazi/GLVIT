@@ -1,0 +1,4 @@
+total number of parameters:
+212913
+ dataset is fashionmnist
+ seed is $None

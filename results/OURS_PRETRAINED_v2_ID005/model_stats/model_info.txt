@@ -1,0 +1,10 @@
+total number of parameters:
+87057657
+ dataset is flowers102
+ seed is $Nonetotal number of parameters:
+87057657
+ dataset is flowers102
+ seed is $Nonetotal number of parameters:
+87057657
+ dataset is flowers102
+ seed is $None

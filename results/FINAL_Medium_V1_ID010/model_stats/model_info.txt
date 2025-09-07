@@ -1,0 +1,16 @@
+total number of parameters:
+106775327
+ dataset is tinyimagenet
+ seed is $Nonetotal number of parameters:
+17431967
+ dataset is tinyimagenet
+ seed is $Nonetotal number of parameters:
+4126367
+ dataset is tinyimagenet
+ seed is $Nonetotal number of parameters:
+64280351
+ dataset is tinyimagenet
+ seed is $Nonetotal number of parameters:
+6787487
+ dataset is tinyimagenet
+ seed is $None
