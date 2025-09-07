@@ -29,11 +29,7 @@ def get_cifar10_dataloaders(data_dir='../datasets', transform_train=None, transf
     
     repeated_train_dataset = ConcatDataset([train_dataset] * repeat_count)
 
-<<<<<<< HEAD
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False)
-=======
-    train_loader = DataLoader(repeated_train_dataset, batch_size=batch_size, shuffle=True)
->>>>>>> ff5c601b2b4163472504295a569288d4734562bc
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     return train_loader, test_loader
