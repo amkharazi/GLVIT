@@ -30,7 +30,7 @@ def get_cifar10_dataloaders(data_dir='../datasets', transform_train=None, transf
         train_dataset, dataset_temp_test = random_split(train_dataset, [int(train_size), temp_test_size])
         test_dataset = ConcatDataset([dataset_temp_test, test_dataset])
 
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     return train_loader, test_loader
